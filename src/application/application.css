@@ -1,0 +1,22 @@
+.root{
+	-fx-font: 16px "Verdana";
+}
+
+.vertex {
+	-fx-font-size: 10px;
+	-fx-background-radius: 100px;
+	-fx-min-height: 60px;
+	-fx-min-width: 60px;
+	-fx-max-height: 60px;
+	-fx-max-width: 60px;
+}
+
+.visualizer {
+	-fx-alignment: center;
+	-fx-spacing: 100px;
+	-fx-padding: 40px;
+}
+.visualizerHBox {
+	-fx-alignment: center;
+	-fx-spacing: 40px;
+}

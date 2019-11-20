@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -32,31 +33,35 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// Visualization HBox
-		HBox hboxVis = new HBox();
-		hboxVis.setStyle("-fx-background-color : #ef5050;");
-		Button centralUser = new Button("user1");
-		hboxVis.getChildren().add(centralUser);
+		ArrayList<String> friends = new ArrayList<String>();
+		for(int i = 0;i<10;i++) {
+			friends.add("user"+(i+1));
+		}
+		VBox vboxVis = getVisualizerBox("user0",friends);
 		// Control HBox
-		HBox hboxControl = getControlHBox();
+		HBox hboxControl = getControlHBox(true); //This boolean is whether a centralUser is selected
 		// Main layout is Border Pane example (top,left,center,right,bottom)
 		BorderPane root = new BorderPane();
 
 		//Add primary boxes to root
-		root.setTop(hboxVis);
+		root.setTop(vboxVis);
 		root.setBottom(hboxControl);
 		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+		mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		//Set primary stage
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setScene(mainScene);
 		primaryStage.setMaximized(true);
 		primaryStage.show();
 	}
-	private HBox getControlHBox() {
-		HBoxControl control = new HBoxControl();
+	private HBox getControlHBox(boolean cUser) {
+		HBoxControl control = new HBoxControl(cUser);
 		return control.getHBoxControl();
 	}
-	
+	private VBox getVisualizerBox(String cUser, List<String> friends) {
+		VBoxVisualizer visualizer = new VBoxVisualizer(cUser, friends);
+		return visualizer.getVBoxVisualizer();
+	}
 	
 	/**
 	 * @param args

@@ -48,7 +48,7 @@ public class HBoxControl{
 	TextField tfRemoveFriend;
 	Button bRemoveFriend;
 	
-	public HBoxControl() {
+	public HBoxControl(boolean cUser) {
 		primary = new HBox();
 		
 ////////Left portion////////	
