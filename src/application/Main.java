@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -13,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,46 +27,44 @@ import javafx.stage.Stage;
  * @author Debra Deppeler
  */
 public class Main extends Application {
-	// store any command-line arguments that were entered.
-	// NOTE: this.getParameters().getRaw() will get these also
-	private List<String> args;
 	private static final int WINDOW_WIDTH = 300;
 	private static final int WINDOW_HEIGHT = 200;
 	private static final String APP_TITLE = "Network Visualizer";
+	private Model model;
+	private Pane vis;
+	private Pane control;
+	private BorderPane root;
+	private Scene scene;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// Visualization HBox
-		ArrayList<String> friends = new ArrayList<String>();
-		for(int i = 0;i<10;i++) {
-			friends.add("user"+(i+1));
-		}
-		VBox vboxVis = getVisualizerBox("user0",friends);
-		// Control HBox
-		HBox hboxControl = getControlHBox(true); //This boolean is whether a centralUser is selected
-		// Main layout is Border Pane example (top,left,center,right,bottom)
-		BorderPane root = new BorderPane();
-
-		//Add primary boxes to root
-		root.setTop(vboxVis);
-		root.setBottom(hboxControl);
-		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-		mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		//Set primary stage
+		// Main layout
+		root = new BorderPane();
+		// Set scene
+		scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		// Set primary stage
 		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setScene(mainScene);
+		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
+		// Model Generation for milestone 1
+		ObservableList<String> friends = FXCollections.observableArrayList();
+		for (int i = 0; i <= 15; i++) {
+			friends.add("user" + i);
+		}
 		primaryStage.show();
+		model = new Model(scene, 0, friends, (int) scene.getWidth(), (int) scene.getHeight());
+		// VisualizerPane
+		vis = new VisualizerPane(model);
+		// ControlPane
+		control = new ControlPane(model); // Set central user to -999 if not selected
+
+		// Add primary boxes to root
+		root.setTop(vis);
+		root.setBottom(control);
+		// Show stage
 	}
-	private HBox getControlHBox(boolean cUser) {
-		HBoxControl control = new HBoxControl(cUser);
-		return control.getHBoxControl();
-	}
-	private VBox getVisualizerBox(String cUser, List<String> friends) {
-		VBoxVisualizer visualizer = new VBoxVisualizer(cUser, friends);
-		return visualizer.getVBoxVisualizer();
-	}
-	
+
 	/**
 	 * @param args
 	 */
