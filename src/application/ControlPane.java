@@ -46,21 +46,22 @@ public class ControlPane extends HBox{
 	////Undo and redo buttons
 		hboxUndoRedo = new HBox();
 		bUndo = new Button("undo");
+		bUndo.getStyleClass().addAll("butInput", "red");
 		bRedo = new Button("redo");
+		bRedo.getStyleClass().add("butInput");
 	////Add friend
 		hboxAddFriend = new InputControl("add friend:","","add","username");
 	////Remove friend
 		hboxRemoveFriend = new InputControl("remove friend:","","remove","username");
-		
+		this.setMinHeight(model.getWindowHeight()/3);
 		setAttributes();
 		collapseContainers();
 	}
 	private void setAttributes() {
-		hboxUndoRedo.setSpacing(100);
-		this.setPadding(new Insets(50,50,50,50));
-		this.setSpacing(50);
-		vboxLeft.setSpacing(20);
-		vboxRight.setSpacing(30);
+		hboxUndoRedo.getStyleClass().add("undoRedo");
+		this.getStyleClass().add("controlPane");
+		vboxLeft.setSpacing(40);
+		vboxRight.setSpacing(60);
 	}
 	private void collapseContainers() {
 		vboxLeft.getChildren().addAll(hboxCentralUser,hboxImportNetwork, hboxExportNetwork, hboxClearNetwork);

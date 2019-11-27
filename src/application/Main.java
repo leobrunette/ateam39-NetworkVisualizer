@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * JDK 11, Eclipse 2019-06 https://gluonhq.com/products/javafx/
  * https://openjfx.io/openjfx-docs/
  *
- * @author Debra Deppeler
+ * @author ateam39
  */
 public class Main extends Application {
 	private static final int WINDOW_WIDTH = 300;
@@ -49,11 +49,11 @@ public class Main extends Application {
 		primaryStage.setMaximized(true);
 		// Model Generation for milestone 1
 		ObservableList<String> friends = FXCollections.observableArrayList();
-		for (int i = 0; i <= 15; i++) {
+		for (int i = 0; i <= 20; i++) {
 			friends.add("user" + i);
 		}
 		primaryStage.show();
-		model = new Model(scene, 0, friends, (int) scene.getWidth(), (int) scene.getHeight());
+		model = new Model(primaryStage, 0, friends, (int) scene.getWidth(), (int) scene.getHeight());
 		// VisualizerPane
 		vis = new VisualizerPane(model);
 		// ControlPane

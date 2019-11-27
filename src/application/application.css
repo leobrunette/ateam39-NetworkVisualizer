@@ -1,18 +1,113 @@
 .root{
 	-fx-font: 16px "Verdana";
+	-fx-text-fill: #303030;
+	-fx-background-color: #ffffff;
 }
 
 .vertex {
 	-fx-font-size: 10px;
+	-fx-wrap-text: true;
 	-fx-background-radius: 100px;
 	-fx-min-height: 60px;
 	-fx-min-width: 60px;
 	-fx-max-height: 60px;
 	-fx-max-width: 60px;
+	-fx-padding: 0px;
+}
+.vertex.primary {
+	-fx-background-color: #ffffff;
+	-fx-border-style: solid inside;
+	-fx-border-color: #303030;
+	-fx-border-width: 2px;
+	-fx-border-radius: 100px;
+}
+.vertex.normal {
+	-fx-text-fill: #ffffff;
+	-fx-background-color: #5378bb;
+	-fx-border-style: solid inside;
+	-fx-border-color: #5378bb;
+	-fx-border-width: 2px;
+	-fx-border-radius: 100px;
+}
+.vertex.normal:hover {
+	-fx-background-color: #ffffff;
+	-fx-text-fill: #5378bb;
+	-fx-border-style: solid inside;
+	-fx-border-color: #5378bb;
+	-fx-border-width: 2px;
+	-fx-border-radius: 100px;
 }
 
-.visualizer {
+.inputControl {
+	-fx-alignment: center;
+	-fx-spacing: 5px;
+	-fx-min-height: 35px;
+	-fx-min-width: 800px;
+	-fx-max-height: 35px;
+	-fx-max-width: 800px;
+}
+
+.undoRedo {
+	-fx-alignment: center;
+	-fx-spacing: 150px;
+	-fx-min-height: 30px;
+	-fx-min-width: 800px;
+	-fx-max-height: 30px;
+	-fx-max-width: 800px;
+}
+
+.controlPane {
 	-fx-alignment: center;
 	-fx-spacing: 100px;
-	-fx-padding: 40px;
+	-fx-padding: 50px;
+	-fx-border-style: solid inside;
+	-fx-border-color: #dddddd;
+	-fx-border-width: 2px 0 0 0;
+	-fx-background-color: #ffffff;
 }
+
+.butInput {
+	-fx-min-height: 35px;
+	-fx-max-height: 35px;
+	-fx-min-width: 100px;
+	-fx-max-width: 100px;
+	-fx-text-fill: #ffffff;
+	-fx-background-color: #5378bb;
+	-fx-border-style: solid inside;
+	-fx-border-color: #5378bb;
+	-fx-border-width: 2px;
+	-fx-background-radius: 5px;
+	-fx-border-radius: 5px;
+}
+.butInput:hover {
+	-fx-background-color: #ffffff;
+	-fx-text-fill: #5378bb;
+	-fx-border-color: #5378bb;
+}
+.butInput.red {
+	-fx-background-color: #ef5050;
+	-fx-border-color: #ef5050;
+}
+.butInput.red:hover {
+	-fx-background-color: #ffffff;
+	-fx-text-fill: #ef5050;
+	-fx-border-color: #ef5050;
+}
+.textInput {
+	-fx-min-height: 35px;
+	-fx-max-height: 35px;
+	-fx-min-width: 200px;
+	-fx-max-width: 200px;
+}
+.labelInput {
+	-fx-min-height: 35px;
+	-fx-max-height: 35px;
+	-fx-min-width: 150px;
+	-fx-max-width: 150px;
+}
+.line {
+	-fx-fill: #dddddd;
+	-fx-stroke: #dddddd;
+	-fx-stroke-width: 3px;
+}
+

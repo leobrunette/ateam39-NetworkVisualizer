@@ -1,18 +1,17 @@
 package application;
 
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Model {
-	private Scene scene;
+	private Stage stage;
 	private int centralUserIndex;
 	private ObservableList<String> friends;
 	private int windowWidth;
 	private int windowHeight;
 	
-	public Model(Scene scene, int centralUserIndex, ObservableList<String> friends, int windowWidth, int windowHeight) {
-		this.scene = scene;
+	public Model(Stage stage, int centralUserIndex, ObservableList<String> friends, int windowWidth, int windowHeight) {
+		this.stage = stage;
 		this.centralUserIndex = centralUserIndex;
 		this.friends = friends;
 		this.windowWidth = windowWidth;
@@ -31,14 +30,17 @@ public class Model {
 	public void setWindowHeight(int windowHeight) {
 		this.windowHeight = windowHeight;
 	}
-	public Scene getScene() {
-		return scene;
+	public Stage getStage() {
+		return stage;
 	}
-	public void setScene(Scene scene) {
-		this.scene = scene;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	public String getCentralUser() {
 		return friends.get(centralUserIndex);
+	}
+	public int getCentralUserIndex() {
+		return centralUserIndex;
 	}
 	public void setCentralUser(int centralUserIndex) {
 		this.centralUserIndex = centralUserIndex;

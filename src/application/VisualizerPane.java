@@ -28,17 +28,17 @@ public class VisualizerPane extends StackPane{
 	public VisualizerPane(Model model) {
 		buttons = new Pane();
 		lines = new Pane();
-		if (model.getCentralUser() != null) {
+		if (model.getCentralUserIndex() >= 0) {
 			centralUser = new Button(model.getCentralUser());
-			centralUser.setTranslateX(model.getWindowWidth()/2);
-			centralUser.setTranslateY(175);
-			this.friends = new ArrayList<Button>();
+			centralUser.setTranslateX((model.getWindowWidth()/2)-30);
+			centralUser.setTranslateY((1*(model.getWindowHeight()/9)));
+			friends = new ArrayList<Button>();
 			connections = new ArrayList<Line>();
 			friendsList = model.getFriends();
 			for (int f = 0; f < friendsList.size(); f++) {
 				Button button = new Button(friendsList.get(f));
-				button.getStyleClass().add("vertex");
-				button.setTranslateY(400);
+				button.getStyleClass().addAll("vertex","normal");
+				button.setTranslateY((4*(model.getWindowHeight()/9)));
 				button.setTranslateX(((f+1)*(model.getWindowWidth()/(friendsList.size()+1)))-(30));
 				button.translateZProperty().set(-10);
 				this.friends.add(button);
@@ -54,7 +54,7 @@ public class VisualizerPane extends StackPane{
 
 	private void setAttributes() {
 		centralUser.setDisable(true);
-		centralUser.getStyleClass().add("vertex");
+		centralUser.getStyleClass().addAll("vertex", "primary");
 	}
 
 	private void collapseContainers() {
@@ -70,6 +70,7 @@ public class VisualizerPane extends StackPane{
 		double angle = Math.acos((con.getEndX()-con.getStartX())/length);
 		Line output = new Line(con.getStartX()+(Math.cos(angle)*30),con.getStartY()-(Math.sin(angle)*30),con.getEndX()-(Math.cos(angle)*30),con.getEndY()+(Math.sin(angle)*30));
 		//Add Line style here
+		output.getStyleClass().add("line");
 		connections.add(output);
 	}
 }
