@@ -1,61 +1,76 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * JDK 11, Eclipse 2019-06
- * https://gluonhq.com/products/javafx/
+ * JDK 11, Eclipse 2019-06 https://gluonhq.com/products/javafx/
  * https://openjfx.io/openjfx-docs/
  *
- * @author Debra Deppeler
+ * @author ateam39
  */
 public class Main extends Application {
-	// store any command-line arguments that were entered.
-	// NOTE: this.getParameters().getRaw() will get these also
-	private List<String> args;
-
 	private static final int WINDOW_WIDTH = 300;
 	private static final int WINDOW_HEIGHT = 200;
-	private static final String APP_TITLE = "Hello World!";
-	
+	private static final String APP_TITLE = "Network Visualizer";
+	private Model model;
+	private Pane vis;
+	private Pane control;
+	private BorderPane root;
+	private Scene scene;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// save args example
-		args = this.getParameters().getRaw();
-			
-		// Create a vertical box with Hello labels for each args
-        	VBox vbox = new VBox();
-        	for (String arg : args) {
-        		vbox.getChildren().add(new Label("hello "+arg));
-        	}
+		// Main layout
+		root = new BorderPane();
+		// Set scene
+		scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+		scene.setFill(Color.BLUE);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		// Set primary stage
+		primaryStage.setTitle(APP_TITLE);
+		primaryStage.setScene(scene);
+		primaryStage.setMaximized(true);
+		// Model Generation for milestone 1
+		ObservableList<String> friends = FXCollections.observableArrayList();
+		for (int i = 0; i < 20; i++) {
+			friends.add("user" + (i+1));
+		}
+		primaryStage.show();
+		model = new Model(primaryStage, "user0", friends, (int) scene.getWidth(), (int) scene.getHeight()); //Set second parameter to null for no central user selected
+		// VisualizerPane
+		vis = new VisualizerPane(model);
+		// ControlPane
+		control = new ControlPane(model); // Set central user to -999 if not selected
 
-		// Main layout is Border Pane example (top,left,center,right,bottom)
-        	BorderPane root = new BorderPane();
-
-		// Add the vertical box to the center of the root pane
-		root.setTop(new Label(APP_TITLE));
-        	root.setCenter(vbox);
-		Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-		// Add the stuff and set the primary stage
-        	primaryStage.setTitle(APP_TITLE);
-        	primaryStage.setScene(mainScene);
-        	primaryStage.show();
+		// Add primary boxes to root
+		root.setTop(vis);
+		root.setBottom(control);
+		// Show stage
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		   launch(args);
+		launch(args);
 	}
 }
