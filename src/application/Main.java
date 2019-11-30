@@ -51,11 +51,11 @@ public class Main extends Application {
 		primaryStage.setMaximized(true);
 		// Model Generation for milestone 1
 		ObservableList<String> friends = FXCollections.observableArrayList();
-		for (int i = 0; i <= 20; i++) {
-			friends.add("user" + i);
+		for (int i = 0; i < 20; i++) {
+			friends.add("user" + (i+1));
 		}
 		primaryStage.show();
-		model = new Model(primaryStage, 0, friends, (int) scene.getWidth(), (int) scene.getHeight());
+		model = new Model(primaryStage, "user0", friends, (int) scene.getWidth(), (int) scene.getHeight()); //Set second parameter to null for no central user selected
 		// VisualizerPane
 		vis = new VisualizerPane(model);
 		// ControlPane

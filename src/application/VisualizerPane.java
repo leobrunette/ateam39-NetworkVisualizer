@@ -28,7 +28,7 @@ public class VisualizerPane extends StackPane{
 	public VisualizerPane(Model model) {
 		buttons = new Pane();
 		lines = new Pane();
-		if (model.getCentralUserIndex() >= 0) {
+		if (model.getCentralUser() != null) {
 			centralUser = new Button(model.getCentralUser());
 			centralUser.setTranslateX((model.getWindowWidth()/2)-30);
 			centralUser.setTranslateY((1*(model.getWindowHeight()/9))-30);
@@ -48,6 +48,8 @@ public class VisualizerPane extends StackPane{
 			setAttributes();
 		}else {
 			noCentral = new Label("no central user selected");
+			noCentral.getStyleClass().add("noCentralUser");
+			noCentral.setTranslateY((2.5*(model.getWindowHeight()/9))-30);
 			this.getChildren().add(noCentral);
 		}
 	}

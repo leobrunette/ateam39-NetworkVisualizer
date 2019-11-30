@@ -110,4 +110,8 @@
 	-fx-stroke: #dddddd;
 	-fx-stroke-width: 3px;
 }
+.noCentralUser{
+	-fx-text-fill: #ef5050;
+	-fx-font-size: 40px;
+}
 

@@ -31,28 +31,35 @@ public class ControlPane extends HBox{
 	HBox hboxRemoveFriend;
 	
 	public ControlPane(Model model) {
+	////Check if central user selected  / no network
+		boolean disabled = false;
+		if(model.getCentralUser()==null) {
+			disabled = true;
+		}
 ////////Left portion////////	
 		vboxLeft = new VBox();
 	////Central user
-		hboxCentralUser = new InputControl("central user:", "", "edit", "username");
+		hboxCentralUser = new InputControl("central user:", "", "edit", "username",false);
 	////Import network
-		hboxImportNetwork = new InputControl("import network:","","import", "filename");
+		hboxImportNetwork = new InputControl("import network:","","import", "filename",false);
 	////Export network
-		hboxExportNetwork = new InputControl("export network:",null,"export", null);
+		hboxExportNetwork = new InputControl("export network:",null,"export", null,disabled);
 	////Clear network
-		hboxClearNetwork = new InputControl("clear network:",null,"clear", null);
+		hboxClearNetwork = new InputControl("clear network:",null,"clear", null,disabled);
 ////////Right portion////////
 		vboxRight = new VBox();
 	////Undo and redo buttons
 		hboxUndoRedo = new HBox();
 		bUndo = new Button("undo");
+		bUndo.setDisable(disabled);
 		bUndo.getStyleClass().addAll("butInput", "red");
 		bRedo = new Button("redo");
+		bRedo.setDisable(disabled);
 		bRedo.getStyleClass().add("butInput");
 	////Add friend
-		hboxAddFriend = new InputControl("add friend:","","add","username");
+		hboxAddFriend = new InputControl("add friend:","","add","username",disabled);
 	////Remove friend
-		hboxRemoveFriend = new InputControl("remove friend:","","remove","username");
+		hboxRemoveFriend = new InputControl("remove friend:","","remove","username",disabled);
 		this.setMinHeight(model.getWindowHeight()/3);
 		setAttributes();
 		collapseContainers();

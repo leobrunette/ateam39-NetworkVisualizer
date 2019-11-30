@@ -5,14 +5,14 @@ import javafx.stage.Stage;
 
 public class Model {
 	private Stage stage;
-	private int centralUserIndex;
+	private String centralUser;
 	private ObservableList<String> friends;
 	private int windowWidth;
 	private int windowHeight;
 	
-	public Model(Stage stage, int centralUserIndex, ObservableList<String> friends, int windowWidth, int windowHeight) {
+	public Model(Stage stage, String centralUser, ObservableList<String> friends, int windowWidth, int windowHeight) {
 		this.stage = stage;
-		this.centralUserIndex = centralUserIndex;
+		this.centralUser = centralUser;
 		this.friends = friends;
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
@@ -37,18 +37,13 @@ public class Model {
 		this.stage = stage;
 	}
 	public String getCentralUser() {
-		return friends.get(centralUserIndex);
+		return centralUser;
 	}
-	public int getCentralUserIndex() {
-		return centralUserIndex;
-	}
-	public void setCentralUser(int centralUserIndex) {
-		this.centralUserIndex = centralUserIndex;
+	public void setCentralUser(String centralUser) {
+		this.centralUser = centralUser;
 	}
 	public ObservableList<String> getFriends() {
-		ObservableList<String> output = friends;
-		output.remove(centralUserIndex);
-		return output;
+		return friends;
 	}
 	public void setFriends(ObservableList<String> friends) {
 		this.friends = friends;
