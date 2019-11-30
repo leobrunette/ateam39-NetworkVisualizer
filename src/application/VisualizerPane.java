@@ -31,14 +31,14 @@ public class VisualizerPane extends StackPane{
 		if (model.getCentralUserIndex() >= 0) {
 			centralUser = new Button(model.getCentralUser());
 			centralUser.setTranslateX((model.getWindowWidth()/2)-30);
-			centralUser.setTranslateY((1*(model.getWindowHeight()/9)));
+			centralUser.setTranslateY((1*(model.getWindowHeight()/9))-30);
 			friends = new ArrayList<Button>();
 			connections = new ArrayList<Line>();
 			friendsList = model.getFriends();
 			for (int f = 0; f < friendsList.size(); f++) {
 				Button button = new Button(friendsList.get(f));
 				button.getStyleClass().addAll("vertex","normal");
-				button.setTranslateY((4*(model.getWindowHeight()/9)));
+				button.setTranslateY((4*(model.getWindowHeight()/9))-30);
 				button.setTranslateX(((f+1)*(model.getWindowWidth()/(friendsList.size()+1)))-(30));
 				button.translateZProperty().set(-10);
 				this.friends.add(button);

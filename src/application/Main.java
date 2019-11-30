@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -42,6 +43,7 @@ public class Main extends Application {
 		root = new BorderPane();
 		// Set scene
 		scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+		scene.setFill(Color.BLUE);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		// Set primary stage
 		primaryStage.setTitle(APP_TITLE);

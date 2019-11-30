@@ -42,23 +42,23 @@
 	-fx-alignment: center;
 	-fx-spacing: 5px;
 	-fx-min-height: 35px;
-	-fx-min-width: 800px;
+	-fx-min-width: 450px;
 	-fx-max-height: 35px;
-	-fx-max-width: 800px;
+	-fx-max-width: 450px;
 }
 
 .undoRedo {
 	-fx-alignment: center;
 	-fx-spacing: 150px;
 	-fx-min-height: 30px;
-	-fx-min-width: 800px;
+	-fx-min-width: 450px;
 	-fx-max-height: 30px;
-	-fx-max-width: 800px;
+	-fx-max-width: 450px;
 }
 
 .controlPane {
 	-fx-alignment: center;
-	-fx-spacing: 100px;
+	-fx-spacing: 200px;
 	-fx-padding: 50px;
 	-fx-border-style: solid inside;
 	-fx-border-color: #dddddd;
