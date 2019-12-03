@@ -30,7 +30,7 @@ public class ControlPane extends HBox{
   //Remove friend
 	HBox hboxRemoveFriend;
 	
-	public ControlPane(Model model) {
+	public ControlPane(ViewModel model) {
 	////Check if central user selected  / no network
 		boolean disabled = false;
 		if(model.getCentralUser()==null) {

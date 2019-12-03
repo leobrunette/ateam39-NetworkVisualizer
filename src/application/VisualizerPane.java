@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -25,7 +27,7 @@ public class VisualizerPane extends StackPane{
 	private Pane buttons;
 	private Pane lines;
 
-	public VisualizerPane(Model model) {
+	public VisualizerPane(ViewModel model) {
 		buttons = new Pane();
 		lines = new Pane();
 		if (model.getCentralUser() != null) {
@@ -41,6 +43,12 @@ public class VisualizerPane extends StackPane{
 				button.setTranslateY((4*(model.getWindowHeight()/9))-30);
 				button.setTranslateX(((f+1)*(model.getWindowWidth()/(friendsList.size()+1)))-(30));
 				button.translateZProperty().set(-10);
+				button.setOnAction(new EventHandler<ActionEvent>() {
+        		@Override
+        		public void handle(ActionEvent e) {
+        			model.getController().changeCentralUserFromButton(model, button);
+        		}
+        	});
 				this.friends.add(button);
 				makeLine(button, centralUser);
 			}

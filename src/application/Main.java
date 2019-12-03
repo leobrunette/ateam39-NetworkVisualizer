@@ -28,10 +28,8 @@ import javafx.stage.Stage;
  * @author ateam39
  */
 public class Main extends Application {
-	private static final int WINDOW_WIDTH = 300;
-	private static final int WINDOW_HEIGHT = 200;
 	private static final String APP_TITLE = "Network Visualizer";
-	private Model model;
+	private ViewModel model;
 	private Pane vis;
 	private Pane control;
 	private BorderPane root;
@@ -39,32 +37,14 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// Main layout
+		Controller controller = new Controller();
 		root = new BorderPane();
-		// Set scene
-		scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-		scene.setFill(Color.BLUE);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		// Set primary stage
-		primaryStage.setTitle(APP_TITLE);
+		scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
-		// Model Generation for milestone 1
-		ObservableList<String> friends = FXCollections.observableArrayList();
-		for (int i = 0; i < 20; i++) {
-			friends.add("user" + (i+1));
-		}
-		primaryStage.show();
-		model = new Model(primaryStage, "user0", friends, (int) scene.getWidth(), (int) scene.getHeight()); //Set second parameter to null for no central user selected
-		// VisualizerPane
-		vis = new VisualizerPane(model);
-		// ControlPane
-		control = new ControlPane(model); // Set central user to -999 if not selected
-
-		// Add primary boxes to root
-		root.setTop(vis);
-		root.setBottom(control);
+		primaryStage.setTitle("Network Visualizer");
 		// Show stage
+		controller.generateStage(new ViewModel(primaryStage, "user0", controller.getFriendsOfUser("user0"), (int) primaryStage.getWidth(), (int) primaryStage.getHeight(), controller));
 	}
 
 	/**
