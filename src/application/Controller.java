@@ -32,14 +32,13 @@ public class Controller {
 		primaryStage.show();
 		model = new ViewModel(primaryStage, model.getCentralUser(), getFriendsOfUser(model.getCentralUser()), (int) primaryStage.getWidth(), (int) primaryStage.getHeight(), this); // Set second parameter to null for no central user selected
 		// VisualizerPane
-		 VisualizerPane vis = new VisualizerPane(model);
+		VisualizerPane vis = new VisualizerPane(model);
 		// ControlPane
 		ControlPane control = new ControlPane(model);
 
 		// Add primary boxes to root
 		root.setTop(vis);
 		root.setBottom(control);
-
 	}
 
 	public void changeCentralUserFromButton(ViewModel model, Button button) {
@@ -50,7 +49,14 @@ public class Controller {
 	public void importNetwork(File file) {
 		
 	}
-	
+	public void exportNetwork() {
+		
+	}
+	public void clearNetwork(ViewModel model) {
+		network = new Graph();
+		model.setCentralUser(null);
+		generateStage(model);
+	}
 	public List<String> getFriendsOfUser(String user){
 		return network.getAdjacentVerticesOf(user);
 	}

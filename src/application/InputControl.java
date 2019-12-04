@@ -1,5 +1,7 @@
 package application;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,7 +12,7 @@ public class InputControl extends HBox{
 	Label label;
 	TextField textField;
 	Button button;
-	public InputControl(String l, String tf, String b, String prompt, boolean disable) {
+	public InputControl(String l, String tf, String b, String prompt, boolean disable, ViewModel model) {
 		if(l!=null) {
 			label = new Label(l);
 			label.getStyleClass().add("labelInput");
@@ -32,6 +34,15 @@ public class InputControl extends HBox{
 				button.getStyleClass().add("red");
 			}
 			button.setDisable(disable);
+			switch(b) {
+			case "clear":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().clearNetwork(model);
+        			}
+				});
+			}
 			this.getChildren().add(button);
 		}
 		this.getStyleClass().add("inputControl");

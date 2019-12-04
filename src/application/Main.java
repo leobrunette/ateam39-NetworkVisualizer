@@ -29,9 +29,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 	private static final String APP_TITLE = "Network Visualizer";
-	private ViewModel model;
-	private Pane vis;
-	private Pane control;
 	private BorderPane root;
 	private Scene scene;
 
@@ -42,7 +39,7 @@ public class Main extends Application {
 		scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
-		primaryStage.setTitle("Network Visualizer");
+		primaryStage.setTitle(APP_TITLE);
 		// Show stage
 		controller.generateStage(new ViewModel(primaryStage, "user0", controller.getFriendsOfUser("user0"), (int) primaryStage.getWidth(), (int) primaryStage.getHeight(), controller));
 	}

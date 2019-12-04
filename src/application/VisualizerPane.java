@@ -44,11 +44,11 @@ public class VisualizerPane extends StackPane{
 				button.setTranslateX(((f+1)*(model.getWindowWidth()/(friendsList.size()+1)))-(30));
 				button.translateZProperty().set(-10);
 				button.setOnAction(new EventHandler<ActionEvent>() {
-        		@Override
-        		public void handle(ActionEvent e) {
-        			model.getController().changeCentralUserFromButton(model, button);
-        		}
-        	});
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().changeCentralUserFromButton(model, button);
+        			}
+				});
 				this.friends.add(button);
 				makeLine(button, centralUser);
 			}
