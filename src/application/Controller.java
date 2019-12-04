@@ -1,20 +1,24 @@
 package application;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller {
 	private Graph network;
+	private ArrayList<String> commands;
 	public Controller() {
 		network = new Graph();
+		commands = new ArrayList<String>();
 		setTempNetwork();
 	}
 
@@ -41,13 +45,28 @@ public class Controller {
 		root.setBottom(control);
 	}
 
-	public void changeCentralUserFromButton(ViewModel model, Button button) {
-		model.setCentralUser(button.getText());
+	public void changeCentralUserFromButton(ViewModel model, String name) {
+		model.setCentralUser(name);
 		generateStage(model);
 	}
-	
-	public void importNetwork(File file) {
+	public void changeCentralUserFromTextField(ViewModel model, String name) {
+		model.setCentralUser(name);
+		network.addVertex(name);
+		commands.add("a "+name);
+		generateStage(model);
+	}
+	public void addFriend(ViewModel model, String name) {
+		network.addEdge(model.getCentralUser(), name);
+		commands.add("a "+model.getCentralUser()+" "+name);
+		generateStage(model);
+	}
+	public void removeFriend(ViewModel model, String name) {
+		network.removeEdge(model.getCentralUser(), name);
+		generateStage(model);
+	}
+	public void importNetwork(ViewModel model, File file) {
 		
+		generateStage(model);
 	}
 	public void exportNetwork() {
 		
@@ -59,6 +78,9 @@ public class Controller {
 	}
 	public List<String> getFriendsOfUser(String user){
 		return network.getAdjacentVerticesOf(user);
+	}
+	public boolean isNetworkEmpty() {
+		return network.order()==0;
 	}
 	public void setTempNetwork() {
 		network.addVertex("user0");

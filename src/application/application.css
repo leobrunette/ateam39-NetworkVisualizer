@@ -114,4 +114,7 @@
 	-fx-text-fill: #ef5050;
 	-fx-font-size: 40px;
 }
-
+.exception {
+	-fx-text-fill: #ef5050;
+	-fx-font-size: 12px;
+}

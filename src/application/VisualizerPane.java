@@ -30,7 +30,7 @@ public class VisualizerPane extends StackPane{
 	public VisualizerPane(ViewModel model) {
 		buttons = new Pane();
 		lines = new Pane();
-		if (model.getCentralUser() != null) {
+		if (model.getCentralUser() != null && !model.getController().isNetworkEmpty()) {
 			centralUser = new Button(model.getCentralUser());
 			centralUser.setTranslateX((model.getWindowWidth()/2)-30);
 			centralUser.setTranslateY((1*(model.getWindowHeight()/9))-30);
@@ -46,7 +46,7 @@ public class VisualizerPane extends StackPane{
 				button.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
         			public void handle(ActionEvent e) {
-        				model.getController().changeCentralUserFromButton(model, button);
+        				model.getController().changeCentralUserFromButton(model, button.getText());
         			}
 				});
 				this.friends.add(button);
@@ -54,8 +54,13 @@ public class VisualizerPane extends StackPane{
 			}
 			collapseContainers();
 			setAttributes();
-		}else {
+		}else if(!model.getController().isNetworkEmpty()){
 			noCentral = new Label("no central user selected");
+			noCentral.getStyleClass().add("noCentralUser");
+			noCentral.setTranslateY((2.5*(model.getWindowHeight()/9))-30);
+			this.getChildren().add(noCentral);
+		}else {
+			noCentral = new Label("no users in network");
 			noCentral.getStyleClass().add("noCentralUser");
 			noCentral.setTranslateY((2.5*(model.getWindowHeight()/9))-30);
 			this.getChildren().add(noCentral);

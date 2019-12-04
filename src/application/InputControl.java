@@ -42,6 +42,39 @@ public class InputControl extends HBox{
         				model.getController().clearNetwork(model);
         			}
 				});
+				break;
+			case "set":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().changeCentralUserFromTextField(model, textField.getText());
+        			}
+				});
+				break;
+			case "add user":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().changeCentralUserFromTextField(model, textField.getText());
+        			}
+				});
+				break;
+			case "add":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().addFriend(model, textField.getText());
+        			}
+				});
+				break;	
+			case "remove":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().removeFriend(model, textField.getText());
+        			}
+				});
+				break;
 			}
 			this.getChildren().add(button);
 		}

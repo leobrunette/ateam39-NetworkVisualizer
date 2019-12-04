@@ -45,7 +45,11 @@ public class Graph implements GraphADT {
 	public Graph() {
 		graphNodes = new ArrayList<GraphNode>(0);
 	}
-
+	public boolean contains(String vertex) {
+		for(GraphNode node : graphNodes) {
+			
+		}
+	}
 	/**
 	 * Add new vertex to the graph.
 	 *
@@ -139,8 +143,15 @@ public class Graph implements GraphADT {
 			for (int i = 0; i < graphNodes.size(); i++) {
 				if (graphNodes.get(i).getVertex().equals(vertex1)) {
 					for (int n = 0; n < graphNodes.get(i).getAdjList().size(); n++) {
-						if (graphNodes.get(i).getAdjList().get(i).equals(vertex2)) {
-							graphNodes.get(i).getAdjList().remove(i);
+						if (graphNodes.get(i).getAdjList().get(n).equals(vertex2)) {
+							graphNodes.get(i).getAdjList().remove(n);
+						}
+					}
+				}
+				if (graphNodes.get(i).getVertex().equals(vertex2)) {
+					for (int x = 0; x < graphNodes.get(i).getAdjList().size(); x++) {
+						if (graphNodes.get(i).getAdjList().get(x).equals(vertex1)) {
+							graphNodes.get(i).getAdjList().remove(x);
 						}
 					}
 				}
