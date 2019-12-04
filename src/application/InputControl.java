@@ -75,6 +75,14 @@ public class InputControl extends HBox{
         			}
 				});
 				break;
+			case "import":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+        			public void handle(ActionEvent e) {
+        				model.getController().importNetwork(model, textField.getText());
+        			}
+				});
+				break;
 			}
 			this.getChildren().add(button);
 		}

@@ -64,7 +64,7 @@ public interface GraphADT {
      * @param vertex1 the first vertex (src)
      * @param vertex2 the second vertex (dst)
      */
-    public void addEdge(String vertex1, String vertex2);
+    public boolean addEdge(String vertex1, String vertex2);
 
     
     /**

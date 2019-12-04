@@ -47,8 +47,11 @@ public class Graph implements GraphADT {
 	}
 	public boolean contains(String vertex) {
 		for(GraphNode node : graphNodes) {
-			
+			if (node.getVertex().equals(vertex)){
+				return true;
+			}
 		}
+		return false;
 	}
 	/**
 	 * Add new vertex to the graph.
@@ -89,6 +92,11 @@ public class Graph implements GraphADT {
 					graphNodes.remove(i);
 				}
 			}
+			for(GraphNode node : graphNodes) {
+				if(node.getAdjList().contains(vertex)) {
+					this.removeEdge(node.getVertex(), vertex);
+				}
+			}
 		}
 	}
 
@@ -101,7 +109,7 @@ public class Graph implements GraphADT {
 	 * Valid argument conditions: 1. neither vertex is null 2. both vertices are in
 	 * the graph 3. the edge is not in the graph
 	 */
-	public void addEdge(String vertex1, String vertex2) {
+	public boolean addEdge(String vertex1, String vertex2) {
 		boolean vert1 = false;
 		for (int n = 0; n < graphNodes.size(); n++) {
 			if (graphNodes.get(n).getVertex().equals(vertex1)) {
@@ -120,14 +128,18 @@ public class Graph implements GraphADT {
 		if (!vert2) {
 			graphNodes.add(new GraphNode(vertex2));
 		}
+		boolean added = false;
 		for (int i = 0; i < graphNodes.size(); i++) {
 			if (graphNodes.get(i).getVertex().equals(vertex1)) {
 				graphNodes.get(i).addEdge(vertex2);
+				added = true;
 			}
 			if (graphNodes.get(i).getVertex().equals(vertex2)) {
 				graphNodes.get(i).addEdge(vertex1);
+				added = true;
 			}
 		}
+		return added;
 	}
 
 	/**
