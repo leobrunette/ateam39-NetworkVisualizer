@@ -1,5 +1,8 @@
 package application;
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 import java.util.List;
 import java.util.Set;
 
@@ -64,7 +67,11 @@ public interface GraphADT {
      * @param vertex1 the first vertex (src)
      * @param vertex2 the second vertex (dst)
      */
+<<<<<<< HEAD
     public boolean addEdge(String vertex1, String vertex2);
+=======
+    public void addEdge(String vertex1, String vertex2);
+>>>>>>> dev
 
     
     /**
