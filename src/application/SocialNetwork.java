@@ -24,7 +24,7 @@ public class SocialNetwork {
 		try {
 			in = new Scanner(file);
 		} catch (FileNotFoundException e) {
-
+			System.out.println("importFromNetwork: file not found exception thrown.");
 		}
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
@@ -56,7 +56,7 @@ public class SocialNetwork {
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// show error in control pane
-			System.out.println("file not found");
+			System.out.println("saveToFile: file not found exception thrown.");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
