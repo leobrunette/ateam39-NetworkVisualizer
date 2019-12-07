@@ -34,19 +34,16 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Controller controller = new Controller();
 		root = new BorderPane();
 		scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setMaximized(true);
 		primaryStage.setTitle(APP_TITLE);
-		// Show stage
-		controller.generateStage(new ViewModel(primaryStage, "user0", controller.getFriendsOfUser("user0"), (int) primaryStage.getWidth(), (int) primaryStage.getHeight(), controller));
+		primaryStage.show();
+		Controller controller = new Controller(primaryStage);
+		controller.generateStage();
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

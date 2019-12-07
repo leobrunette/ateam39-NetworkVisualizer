@@ -2,18 +2,22 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class SocialNetwork {
-  Graph graph = new Graph();
-private String centralUser;
-  public SocialNetwork() {
-	  
-  }
-  
-  public void loadFromNetwork(String filepath) {
-	  File file = new File(filepath);
+	private Graph graph;
+	private String centralUser;
+	private ArrayList<String> commands;
+
+	public SocialNetwork() {
+		graph = new Graph();
+		centralUser = null;
+		commands = new ArrayList<String>();
+	}
+
+	public void loadFromNetwork(File file) {
 		Scanner in = null;
 		try {
 			in = new Scanner(file);
@@ -39,39 +43,60 @@ private String centralUser;
 				centralUser = partsOfLine[1];
 			}
 		}
-  }
-  public boolean addFriends(String friend1, String friend2){
-    if (friend1.equals(friend2)) {
-      return false;
-    }
-    graph.addEdge(friend1, friend2);
-    return true;
-  }
-  
-  public boolean removeFriends(String friend1, String friend2) {
-    if (friend1.equals(friend2)) {
-      return false;
-    }
-    graph.removeEdge(friend1, friend2);
-    return true;
-  }
-  
-  public boolean addUser(String friend) {
-    if (friend != null) {
-      if (graph.order() == 0) {
-      graph.addVertex(friend);
-      this.centralUser = friend;
-      }
-      else {
-        graph.addVertex(friend);
-      }
-      return true;
-    }
-    return false;
-  }
-  
-  public List<String> getFriends(String user){
-   return  graph.getAdjacentVerticesOf(user);
-  }
-  
+	}
+
+	public void saveToFile(File file) {
+
+	}
+
+	public boolean addFriends(String friend1, String friend2) {
+		if (friend1.equals(friend2)) {
+			return false;
+		}
+		return graph.addEdge(friend1, friend2);
+	}
+
+	public boolean removeFriends(String friend1, String friend2) {
+		if (friend1.equals(friend2)) {
+			return false;
+		}
+		return graph.removeEdge(friend1, friend2);
+	}
+
+	public boolean addUser(String friend) {
+		if (friend != null) {
+			if (graph.order() == 0) {
+				if (graph.addVertex(friend)) {
+					this.centralUser = friend;
+					return true;
+				}
+			} else {
+				return graph.addVertex(friend);
+			}
+		}
+		return false;
+	}
+
+	public boolean removeUser(String friend) {
+		if (friend != null) {
+			return graph.removeVertex(friend);
+		}
+		return false;
+	}
+
+	public List<String> getFriends(String user) {
+		return graph.getAdjacentVerticesOf(user);
+	}
+
+	public int getNumberOfUsers() {
+		return graph.order();
+	}
+
+	public String getCentralUser() {
+		return centralUser;
+	}
+
+	public void setCentralUser(String centralUser) {
+		this.centralUser = centralUser;
+	}
 }

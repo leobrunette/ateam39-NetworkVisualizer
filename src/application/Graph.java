@@ -6,24 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Filename: Graph.java Project: p4
- * Author: Leo Brunette
- * Net ID: 9080224448
- * Course: CS400 - LEC 002
-=======
-import java.util.List;
-import java.util.Set;
-//import GraphADT;
-import java.util.ArrayList;
-import java.util.HashSet;
-//import java.util.LinkedList;
-/**
- * Filename:   Graph.java
- * Project:    p4
- * Authors:    
+ * Filename: Graph.java Project: p4 Author: Leo Brunette Net ID: 9080224448
+ * Course: CS400 - LEC 002 ======= import java.util.List; import java.util.Set;
+ * //import GraphADT; import java.util.ArrayList; import java.util.HashSet;
+ * //import java.util.LinkedList; /** Filename: Graph.java Project: p4 Authors:
  * 
->>>>>>> dev
- * Directed and unweighted graph implementation
+ * >>>>>>> dev Directed and unweighted graph implementation
  */
 
 public class Graph implements GraphADT {
@@ -58,14 +46,16 @@ public class Graph implements GraphADT {
 	public Graph() {
 		graphNodes = new ArrayList<GraphNode>(0);
 	}
+
 	public boolean contains(String vertex) {
-		for(GraphNode node : graphNodes) {
-			if (node.getVertex().equals(vertex)){
+		for (GraphNode node : graphNodes) {
+			if (node.getVertex().equals(vertex)) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 	/**
 	 * Add new vertex to the graph.
 	 *
@@ -75,7 +65,7 @@ public class Graph implements GraphADT {
 	 * Valid argument conditions: 1. vertex is non-null 2. vertex is not already in
 	 * the graph
 	 */
-	public void addVertex(String vertex) {
+	public boolean addVertex(String vertex) {
 		boolean exists = false;
 		if (vertex != null) {
 			for (int i = 0; i < graphNodes.size(); i++) {
@@ -85,8 +75,10 @@ public class Graph implements GraphADT {
 			}
 			if (!exists) {
 				graphNodes.add(new GraphNode(vertex));
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -98,19 +90,22 @@ public class Graph implements GraphADT {
 	 * Valid argument conditions: 1. vertex is non-null 2. vertex is not already in
 	 * the graph
 	 */
-	public void removeVertex(String vertex) {
+	public boolean removeVertex(String vertex) {
+		boolean removed = false;
 		if (vertex != null) {
 			for (int i = 0; i < graphNodes.size(); i++) {
 				if (graphNodes.get(i).getVertex().equals(vertex)) {
 					graphNodes.remove(i);
+					removed = true;
 				}
 			}
-			for(GraphNode node : graphNodes) {
-				if(node.getAdjList().contains(vertex)) {
+			for (GraphNode node : graphNodes) {
+				if (node.getAdjList().contains(vertex)) {
 					this.removeEdge(node.getVertex(), vertex);
 				}
 			}
 		}
+		return removed;
 	}
 
 	/**
@@ -163,13 +158,15 @@ public class Graph implements GraphADT {
 	 * Valid argument conditions: 1. neither vertex is null 2. both vertices are in
 	 * the graph 3. the edge from vertex1 to vertex2 is in the graph
 	 */
-	public void removeEdge(String vertex1, String vertex2) {
+	public boolean removeEdge(String vertex1, String vertex2) {
+		boolean removed = false;
 		if (vertex1 != null && vertex2 != null) {
 			for (int i = 0; i < graphNodes.size(); i++) {
 				if (graphNodes.get(i).getVertex().equals(vertex1)) {
 					for (int n = 0; n < graphNodes.get(i).getAdjList().size(); n++) {
 						if (graphNodes.get(i).getAdjList().get(n).equals(vertex2)) {
 							graphNodes.get(i).getAdjList().remove(n);
+							removed = true;
 						}
 					}
 				}
@@ -177,11 +174,13 @@ public class Graph implements GraphADT {
 					for (int x = 0; x < graphNodes.get(i).getAdjList().size(); x++) {
 						if (graphNodes.get(i).getAdjList().get(x).equals(vertex1)) {
 							graphNodes.get(i).getAdjList().remove(x);
+							removed = true;
 						}
 					}
 				}
 			}
 		}
+		return removed;
 	}
 
 	/**

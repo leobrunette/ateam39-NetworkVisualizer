@@ -16,127 +16,93 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller {
-	private Graph network;
-	private ArrayList<String> commands;
+	private SocialNetwork network;
+	private Stage stage;
+	private double windowWidth;
+	private double windowHeight;
 
-	public Controller() {
-		network = new Graph();
-		commands = new ArrayList<String>();
-		setTempNetwork();
+	public Controller(Stage stage) {
+		this.stage = stage;
+		windowWidth = stage.getWidth();
+		windowHeight = stage.getHeight();
+		network = new SocialNetwork();
 	}
 
-	public void generateStage(ViewModel model) {
-		Stage primaryStage = model.getStage();
+	public void generateStage() {
 		// Main layout
 		BorderPane root = new BorderPane();
 		// Set scene
-		Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+		Scene scene = new Scene(root, windowWidth, windowHeight);
 		scene.setFill(Color.BLUE);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		// Set primary stage
-		primaryStage.setScene(scene);
-		// primaryStage.setMaximized(true);
-		primaryStage.show();
-		model = new ViewModel(primaryStage, model.getCentralUser(), getFriendsOfUser(model.getCentralUser()),
-				(int) primaryStage.getWidth(), (int) primaryStage.getHeight(), this); // Set second parameter to null
-																						// for no central user selected
+		stage.setScene(scene);
+		stage.show();
 		// VisualizerPane
-		VisualizerPane vis = new VisualizerPane(model);
+		VisualizerPane vis = new VisualizerPane(this);
 		// ControlPane
-		ControlPane control = new ControlPane(model);
+		ControlPane control = new ControlPane(this);
 
 		// Add primary boxes to root
 		root.setTop(vis);
 		root.setBottom(control);
 	}
 
-	public void changeCentralUserFromButton(ViewModel model, String name) {
-		model.setCentralUser(name);
-		generateStage(model);
+	public void changeCentralUser(String user) {
+		network.setCentralUser(user);
+		network.addUser(user);
+		generateStage();
 	}
 
-	public void changeCentralUserFromTextField(ViewModel model, String name) {
-		model.setCentralUser(name);
-		network.addVertex(name);
-		commands.add("a " + name);
-		generateStage(model);
+	public void addFriend(String user) {
+		network.addFriends(network.getCentralUser(), user);
+		generateStage();
 	}
 
-	public void addFriend(ViewModel model, String name) {
-		network.addEdge(model.getCentralUser(), name);
-		commands.add("a " + model.getCentralUser() + " " + name);
-		generateStage(model);
+	public void removeFriend(String user) {
+		network.removeFriends(network.getCentralUser(), user);
+		generateStage();
 	}
 
-	public void removeFriend(ViewModel model, String name) {
-		network.removeEdge(model.getCentralUser(), name);
-		generateStage(model);
-	}
-
-	public void importNetwork(ViewModel model, String filepath) {
-		File file = new File(filepath);
-		Scanner in = null;
-		try {
-			in = new Scanner(file);
-		} catch (FileNotFoundException e) {
-
-		}
-		while (in.hasNextLine()) {
-			String line = in.nextLine();
-			String[] partsOfLine = line.split(" ");
-			if (partsOfLine[0].equals("a")) {
-				if (partsOfLine.length == 2) {
-					network.addVertex(partsOfLine[1]);
-				} else {
-					network.addEdge(partsOfLine[1], partsOfLine[2]);
-				}
-			} else if (partsOfLine[0].equals("r")) {
-				if (partsOfLine.length == 2) {
-					network.removeVertex(partsOfLine[1]);
-				} else {
-					network.removeEdge(partsOfLine[1], partsOfLine[2]);
-				}
-			} else if (partsOfLine[0].equals("s")) {
-				model.setCentralUser(partsOfLine[1]);
-			}
-		}
-		generateStage(model);
+	public void importNetwork(String filepath) {
+		network.loadFromNetwork(new File(filepath));
+		generateStage();
 	}
 
 	public void exportNetwork() {
 
 	}
 
-	public void clearNetwork(ViewModel model) {
-		network = new Graph();
-		model.setCentralUser(null);
-		generateStage(model);
+	public void clearNetwork() {
+		network = new SocialNetwork();
+		generateStage();
 	}
 
 	public List<String> getFriendsOfUser(String user) {
-		return network.getAdjacentVerticesOf(user);
+		return network.getFriends(user);
 	}
 
 	public boolean isNetworkEmpty() {
-		return network.order() == 0;
+		return network.getNumberOfUsers() == 0;
 	}
 
-	public void setTempNetwork() {
-		network.addVertex("user0");
-		network.addVertex("user1");
-		network.addVertex("user2");
-		network.addVertex("user3");
-		network.addVertex("user4");
-		network.addVertex("user5");
-		network.addVertex("user6");
-		network.addVertex("user7");
-		network.addEdge("user0", "user1");
-		network.addEdge("user0", "user2");
-		network.addEdge("user1", "user3");
-		network.addEdge("user2", "user3");
-		network.addEdge("user3", "user4");
-		network.addEdge("user3", "user5");
-		network.addEdge("user3", "user6");
-		network.addEdge("user3", "user7");
+	public double getWindowWidth() {
+		return windowWidth;
+	}
+
+	public void setWindowWidth(double windowWidth) {
+		this.windowWidth = windowWidth;
+	}
+
+	public double getWindowHeight() {
+		return windowHeight;
+	}
+
+	public void setWindowHeight(double windowHeight) {
+		this.windowHeight = windowHeight;
+	}
+
+	public String getCentralUser() {
+		return network.getCentralUser();
 	}
 }
