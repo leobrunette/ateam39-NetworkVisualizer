@@ -69,8 +69,9 @@ public class Controller {
 		generateStage();
 	}
 
-	public void exportNetwork() {
-
+	public void exportNetwork(String filepath) {
+		network.saveToFile(new File(filepath));
+		generateStage();
 	}
 
 	public void clearNetwork() {

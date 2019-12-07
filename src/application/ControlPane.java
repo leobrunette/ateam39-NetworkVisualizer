@@ -51,7 +51,7 @@ public class ControlPane extends HBox {
 		importNetworkException.setVisible(false);
 		importNetworkException.getStyleClass().addAll("exception");
 		//// Export network
-		hboxExportNetwork = new InputControl("export network:", null, "export", null, disabled, controller);
+		hboxExportNetwork = new InputControl("export network:", "", "export", "file path", disabled, controller);
 		//// Clear network
 		hboxClearNetwork = new InputControl("clear network:", null, "clear", null, disabled, controller);
 ////////Right portion////////
