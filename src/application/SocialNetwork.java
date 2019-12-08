@@ -12,7 +12,7 @@ public class SocialNetwork {
 	private Graph graph;
 	private String centralUser;
 	private ArrayList<String> commands;
-
+	//For undo redo save every command ever done insert at a "current" index, then just add or subtract for undo redo and for export just return to the index
 	public SocialNetwork() {
 		graph = new Graph();
 		centralUser = null;
