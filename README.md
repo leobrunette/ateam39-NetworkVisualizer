@@ -5,3 +5,4 @@
 - no error message when export file is not found (this shouldn't even really error but if someone can get it to throw the exception let me know, I'll have it print to the console)
 - should create SocialNetworkADT interface incase they want it
 - still have to do undo redo
+- remove scene.setFill(Color.BLUE); from controller
