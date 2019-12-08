@@ -6,3 +6,4 @@
 - should create SocialNetworkADT interface incase they want it
 - still have to do undo redo
 - remove scene.setFill(Color.BLUE); from controller
+- when user exits the program, add a prompt to the user whether to save to file or not
