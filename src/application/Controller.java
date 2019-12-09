@@ -145,7 +145,14 @@ public class Controller {
 	public String getStatus() {
 		return status;
 	}
-
+	public void addUser(String user) {
+		if(network.addUser(user)) {
+			setStatus("added user "+user);
+		}else {
+			setStatus("failed to add user "+user);
+		}
+		generateStage();
+	}
 	private EventHandler<WindowEvent> closeHandler = event -> {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Exit Confirmation");

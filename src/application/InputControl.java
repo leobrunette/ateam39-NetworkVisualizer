@@ -92,6 +92,14 @@ public class InputControl extends HBox {
 					}
 				});
 				break;
+			case "new user":
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent e) {
+						controller.addUser(textField.getText());
+					}
+				});
+				break;
 			}
 			this.getChildren().add(button);
 		}
