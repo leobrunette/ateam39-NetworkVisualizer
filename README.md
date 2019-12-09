@@ -7,4 +7,4 @@
 - ~~still have to do undo redo~~ (we got rid of undo redo)
 - ~~remove scene.setFill(Color.BLUE); from controller~~
 - when user exits the program, add a prompt to the user whether to save to file or not
-- ~~right now if I choose to export/save to a file that contained previous text it just exports the network to graph along with the previous existing text. We need to clear the file first before we save into it~~
+- ~~right now if I choose to export/save to a file that contained previous text it just exports the network to graph along with the previous existing text. We need to clear the file first before we save into it~~ (just needs to be tested)
