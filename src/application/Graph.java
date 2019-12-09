@@ -119,7 +119,7 @@ public class Graph implements GraphADT {
 	 */
 	public boolean addEdge(String vertex1, String vertex2) {
 		boolean vert1 = false;
-		if(vertex1.equals(vertex2)){
+		if (vertex1.equals(vertex2)) {
 			return false;
 		}
 		for (int n = 0; n < graphNodes.size(); n++) {
@@ -140,14 +140,28 @@ public class Graph implements GraphADT {
 			graphNodes.add(new GraphNode(vertex2));
 		}
 		boolean added = false;
+		boolean containsEdge1 = false;
+		boolean containsEdge2 = false;
 		for (int i = 0; i < graphNodes.size(); i++) {
-			if (graphNodes.get(i).getVertex().equals(vertex1)) {
-				graphNodes.get(i).addEdge(vertex2);
-				added = true;
+			for (int n = 0; n < graphNodes.size(); n++) {
+				if (graphNodes.get(i).getVertex().equals(vertex1) && graphNodes.get(i).getAdjList().contains(vertex2)) {
+					containsEdge1 = true;
+				}
+				if (graphNodes.get(i).getVertex().equals(vertex2) && graphNodes.get(i).getAdjList().contains(vertex1)) {
+					containsEdge2 = true;
+				}
 			}
-			if (graphNodes.get(i).getVertex().equals(vertex2)) {
-				graphNodes.get(i).addEdge(vertex1);
-				added = true;
+		}
+		if (!containsEdge1 && !containsEdge2) {
+			for (int i = 0; i < graphNodes.size(); i++) {
+				if (graphNodes.get(i).getVertex().equals(vertex1)) {
+					graphNodes.get(i).addEdge(vertex2);
+					added = true;
+				}
+				if (graphNodes.get(i).getVertex().equals(vertex2)) {
+					graphNodes.get(i).addEdge(vertex1);
+					added = true;
+				}
 			}
 		}
 		return added;
