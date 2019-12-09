@@ -8,11 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+
 public class SocialNetwork {
 	private Graph graph;
 	private String centralUser;
 	private ArrayList<String> commands;
-	//For undo redo save every command ever done insert at a "current" index, then just add or subtract for undo redo and for export just return to the index
+	
 	public SocialNetwork() {
 		graph = new Graph();
 		centralUser = null;
@@ -23,27 +27,28 @@ public class SocialNetwork {
 		Scanner in = null;
 		try {
 			in = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			System.out.println("importFromNetwork: file not found exception thrown.");
-		}
-		while (in.hasNextLine()) {
-			String line = in.nextLine();
-			String[] partsOfLine = line.split(" ");
-			if (partsOfLine[0].equals("a")) {
-				if (partsOfLine.length == 2) {
-					addUser(partsOfLine[1]);
-				} else {
-					addFriends(partsOfLine[1], partsOfLine[2]);
+			while (in.hasNextLine()) {
+				String line = in.nextLine();
+				String[] partsOfLine = line.split(" ");
+				if (partsOfLine[0].equals("a")) {
+					if (partsOfLine.length == 2) {
+						addUser(partsOfLine[1]);
+					} else {
+						addFriends(partsOfLine[1], partsOfLine[2]);
+					}
+				} else if (partsOfLine[0].equals("r")) {
+					if (partsOfLine.length == 2) {
+						removeUser(partsOfLine[1]);
+					} else {
+						removeFriends(partsOfLine[1], partsOfLine[2]);
+					}
+				} else if (partsOfLine[0].equals("s")) {
+					setCentralUser(partsOfLine[1]);
 				}
-			} else if (partsOfLine[0].equals("r")) {
-				if (partsOfLine.length == 2) {
-					removeUser(partsOfLine[1]);
-				} else {
-					removeFriends(partsOfLine[1], partsOfLine[2]);
-				}
-			} else if (partsOfLine[0].equals("s")) {
-				setCentralUser(partsOfLine[1]);
 			}
+		} catch (FileNotFoundException e) {
+			Alert importNetworkError = new Alert(AlertType.ERROR,"Import Network from File: file not found.");
+			importNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
 		}
 	}
 
@@ -55,10 +60,11 @@ public class SocialNetwork {
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
-			// show error in control pane
-			System.out.println("saveToFile: file not found exception thrown.");
+			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: invalid path.");
+			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: unsupported encoding.");
+			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
 		}
 	}
 
@@ -119,7 +125,6 @@ public class SocialNetwork {
 	public String getCentralUser() {
 		return centralUser;
 	}
-
 	public void setCentralUser(String centralUser) {
 		this.centralUser = centralUser;
 		commands.add("s " + centralUser);

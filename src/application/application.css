@@ -118,3 +118,6 @@
 	-fx-text-fill: #ef5050;
 	-fx-font-size: 12px;
 }
+.errorAlert {
+	-fx-background-color: #ffffff;
+}

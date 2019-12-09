@@ -33,7 +33,6 @@ public class Controller {
 		BorderPane root = new BorderPane();
 		// Set scene
 		Scene scene = new Scene(root, windowWidth, windowHeight);
-		scene.setFill(Color.BLUE);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		// Set primary stage
 		stage.setScene(scene);

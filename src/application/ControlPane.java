@@ -1,7 +1,12 @@
 package application;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -47,45 +52,31 @@ public class ControlPane extends HBox {
 		}
 		//// Import network
 		hboxImportNetwork = new InputControl("import network:", "", "import", "file path", false, controller);
-		importNetworkException = new Label("error");
-		importNetworkException.setVisible(false);
-		importNetworkException.getStyleClass().addAll("exception");
 		//// Export network
 		hboxExportNetwork = new InputControl("export network:", "", "export", "file path", disabled, controller);
 		//// Clear network
 		hboxClearNetwork = new InputControl("clear network:", null, "clear", null, disabled, controller);
 ////////Right portion////////
 		vboxRight = new VBox();
-		//// Undo and redo buttons
-		hboxUndoRedo = new HBox();
-		bUndo = new Button("undo");
-		bUndo.setDisable(disabled);
-		bUndo.getStyleClass().addAll("butInput", "red");
-		bRedo = new Button("redo");
-		bRedo.setDisable(disabled);
-		bRedo.getStyleClass().add("butInput");
 		//// Add friend
 		hboxAddFriend = new InputControl("add friend:", "", "add", "username", disabled, controller);
 		//// Remove friend
 		hboxRemoveFriend = new InputControl("remove friend:", "", "remove", "username", disabled, controller);
 		this.setMinHeight(1 * (controller.getWindowHeight() / 3));
-		// this.setMaxHeight(2*(model.getWindowHeight()/5));
+		this.setMaxHeight(2*(controller.getWindowHeight()/5));
 		setAttributes();
 		collapseContainers();
 	}
 
 	private void setAttributes() {
-		hboxUndoRedo.getStyleClass().add("undoRedo");
 		this.getStyleClass().add("controlPane");
-		vboxLeft.setSpacing(40);
-		vboxRight.setSpacing(60);
+		vboxLeft.setSpacing(50);
+		vboxRight.setSpacing(50);
 	}
 
 	private void collapseContainers() {
-		vboxLeft.getChildren().addAll(hboxCentralUser, hboxImportNetwork, importNetworkException, hboxExportNetwork,
-				hboxClearNetwork);
-		hboxUndoRedo.getChildren().addAll(bUndo, bRedo);
-		vboxRight.getChildren().addAll(hboxUndoRedo, hboxAddFriend, hboxRemoveFriend);
+		vboxLeft.getChildren().addAll(hboxCentralUser, hboxImportNetwork, hboxExportNetwork);
+		vboxRight.getChildren().addAll(hboxAddFriend, hboxRemoveFriend,hboxClearNetwork);
 		this.getChildren().addAll(vboxLeft, vboxRight);
 	}
 }
