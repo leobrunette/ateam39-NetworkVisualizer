@@ -29,12 +29,14 @@ public class Controller {
 	private Stage stage;
 	private double windowWidth;
 	private double windowHeight;
+	private String status;
 
 	public Controller(Stage stage) {
 		this.stage = stage;
 		windowWidth = stage.getWidth();
 		windowHeight = stage.getHeight();
 		network = new SocialNetwork();
+		status = null;
 	}
 
 	public void generateStage() {
@@ -59,32 +61,52 @@ public class Controller {
 
 	public void changeCentralUser(String user) {
 		network.setCentralUser(user);
-		network.addUser(user);
+		if (network.addUser(user)) {
+			setStatus("added " + user + " and set as central user");
+		} else {
+			setStatus(user + " set as central user");
+		}
 		generateStage();
 	}
 
 	public void addFriend(String user) {
-		network.addFriends(network.getCentralUser(), user);
+		if(network.addFriends(network.getCentralUser(), user)) {
+			setStatus("added friendship between "+network.getCentralUser()+" and "+user);
+		}else {
+			setStatus("failed to add friendship between "+network.getCentralUser()+" and "+user);
+		}
 		generateStage();
 	}
 
 	public void removeFriend(String user) {
-		network.removeFriends(network.getCentralUser(), user);
+		if(network.removeFriends(network.getCentralUser(), user)) {
+			setStatus("removed friendship between "+network.getCentralUser()+" and "+user);
+		}else {
+			setStatus("failed to remove friendship between "+network.getCentralUser()+" and "+user);
+		}
 		generateStage();
 	}
 
 	public void importNetwork(String filepath) {
+		clearNetwork();
 		network.loadFromNetwork(new File(filepath));
+		if(!network.equals(new SocialNetwork())) {
+			setStatus("imported network from "+filepath);
+		}else {
+			setStatus("failed to import network from "+filepath);
+		}
 		generateStage();
 	}
 
 	public void exportNetwork(String filepath) {
 		network.saveToFile(new File(filepath));
+		setStatus("exported network to file "+filepath);
 		generateStage();
 	}
 
 	public void clearNetwork() {
 		network = new SocialNetwork();
+		setStatus("cleared network");
 		generateStage();
 	}
 
@@ -115,35 +137,43 @@ public class Controller {
 	public String getCentralUser() {
 		return network.getCentralUser();
 	}
-	
-	private EventHandler<WindowEvent> closeHandler = event  -> {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Exit Confirmation");
-        alert.setHeaderText("Confirm Exit");
-        alert.setContentText("Are you sure you want to exit without saving network?");
 
-        ButtonType save = new ButtonType("Save");
-        ButtonType exit = new ButtonType("Exit");
-        ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-        alert.getButtonTypes().setAll(save, exit, cancel);
+	public String getStatus() {
+		return status;
+	}
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == save){
-        	TextInputDialog dialog = new TextInputDialog("");
-        	dialog.setTitle("Network Export");
-        	dialog.setHeaderText("Save to File");
-        	dialog.setContentText("Enter file path:");
+	private EventHandler<WindowEvent> closeHandler = event -> {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Exit Confirmation");
+		alert.setHeaderText("Confirm Exit");
+		alert.setContentText("Are you sure you want to exit without saving network?");
 
-        	// Traditional way to get the response value.
-        	Optional<String> saveResult = dialog.showAndWait();
-        	if (saveResult.isPresent()){
-        	    network.saveToFile(new File(saveResult.get()));
-        	}
-        } else if (result.get() == exit) {
-        	
-        } else if (result.get() == cancel) {
-            event.consume();
-        }
+		ButtonType save = new ButtonType("Save");
+		ButtonType exit = new ButtonType("Exit");
+		ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(save, exit, cancel);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == save) {
+			TextInputDialog dialog = new TextInputDialog("");
+			dialog.setTitle("Network Export");
+			dialog.setHeaderText("Save to File");
+			dialog.setContentText("Enter file path:");
+
+			// Traditional way to get the response value.
+			Optional<String> saveResult = dialog.showAndWait();
+			if (saveResult.isPresent()) {
+				network.saveToFile(new File(saveResult.get()));
+			}
+		} else if (result.get() == exit) {
+
+		} else if (result.get() == cancel) {
+			event.consume();
+		}
 	};
 }

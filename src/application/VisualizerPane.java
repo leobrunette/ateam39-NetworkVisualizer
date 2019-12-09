@@ -26,10 +26,17 @@ public class VisualizerPane extends StackPane {
 	private Label noCentral;
 	private Pane buttons;
 	private Pane lines;
+	private Label status;
+	private Pane statusPane;
 
 	public VisualizerPane(Controller controller) {
 		buttons = new Pane();
 		lines = new Pane();
+		statusPane = new Pane();
+		status = new Label("status: "+controller.getStatus());
+		status.setTranslateX(10);
+		status.setTranslateY(10);
+		statusPane.getChildren().add(status);
 		if (controller.getCentralUser() != null && !controller.isNetworkEmpty()) {
 			centralUser = new Button(controller.getCentralUser());
 			centralUser.setTranslateX((controller.getWindowWidth() / 2) - 30);
@@ -70,13 +77,14 @@ public class VisualizerPane extends StackPane {
 	private void setAttributes() {
 		centralUser.setDisable(true);
 		centralUser.getStyleClass().addAll("vertex", "primary");
+		status.getStyleClass().add("status");
 	}
 
 	private void collapseContainers() {
 		buttons.getChildren().add(centralUser);
 		buttons.getChildren().addAll(friends);
 		lines.getChildren().addAll(connections);
-		this.getChildren().addAll(lines, buttons);
+		this.getChildren().addAll(statusPane, lines, buttons);
 	}
 
 	private void makeLine(Button b1, Button b2) {

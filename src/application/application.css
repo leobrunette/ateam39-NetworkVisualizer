@@ -121,3 +121,7 @@
 .errorAlert {
 	-fx-background-color: #ffffff;
 }
+.status {
+	-fx-text-fill: #5bd961;
+}
+

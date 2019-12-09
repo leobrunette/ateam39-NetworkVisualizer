@@ -1,0 +1,5 @@
+a leo
+s leo
+a leo a
+a leo b
+a leo c
