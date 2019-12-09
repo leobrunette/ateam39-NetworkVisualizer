@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -54,6 +55,10 @@ public class SocialNetwork {
 
 	public void saveToFile(File file) {
 		try {
+			if(file.exists()) {
+				file.delete();
+			}
+			file.createNewFile();
 			PrintWriter writer = new PrintWriter(file.getPath(), "UTF-8");
 			for (String line : commands) {
 				writer.println(line);
@@ -64,6 +69,9 @@ public class SocialNetwork {
 			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
 		} catch (UnsupportedEncodingException e) {
 			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: unsupported encoding.");
+			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
+		} catch (IOException e) {
+			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: IO Exception.");
 			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
 		}
 	}
