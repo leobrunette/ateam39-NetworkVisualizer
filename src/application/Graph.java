@@ -119,6 +119,9 @@ public class Graph implements GraphADT {
 	 */
 	public boolean addEdge(String vertex1, String vertex2) {
 		boolean vert1 = false;
+		if(vertex1.equals(vertex2)){
+			return false;
+		}
 		for (int n = 0; n < graphNodes.size(); n++) {
 			if (graphNodes.get(n).getVertex().equals(vertex1)) {
 				vert1 = true;

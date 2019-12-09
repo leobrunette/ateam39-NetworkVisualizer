@@ -42,9 +42,9 @@ public class Main extends Application {
 		root = new BorderPane();
 		scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setMaximized(true);
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.show();
+		primaryStage.setMaximized(true);
 		Controller controller = new Controller(primaryStage);
 		controller.generateStage();
 	}

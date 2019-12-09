@@ -1,0 +1,5 @@
+a r
+s r
+a r a
+a r a
+a r a

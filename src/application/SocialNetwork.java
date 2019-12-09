@@ -17,7 +17,7 @@ public class SocialNetwork {
 	private Graph graph;
 	private String centralUser;
 	private ArrayList<String> commands;
-	
+
 	public SocialNetwork() {
 		graph = new Graph();
 		centralUser = null;
@@ -48,14 +48,14 @@ public class SocialNetwork {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			Alert importNetworkError = new Alert(AlertType.ERROR,"Import Network from File: file not found.");
-			importNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
+			Alert importNetworkError = new Alert(AlertType.ERROR, "Import Network from File: file not found.");
+			importNetworkError.showAndWait().filter(r -> r == ButtonType.OK);
 		}
 	}
 
 	public void saveToFile(File file) {
 		try {
-			if(file.exists()) {
+			if (file.exists()) {
 				file.delete();
 			}
 			file.createNewFile();
@@ -65,37 +65,39 @@ public class SocialNetwork {
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
-			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: invalid path.");
-			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
+			Alert exportNetworkError = new Alert(AlertType.ERROR, "Save Network to File: invalid path.");
+			exportNetworkError.showAndWait().filter(r -> r == ButtonType.OK);
 		} catch (UnsupportedEncodingException e) {
-			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: unsupported encoding.");
-			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
+			Alert exportNetworkError = new Alert(AlertType.ERROR, "Save Network to File: unsupported encoding.");
+			exportNetworkError.showAndWait().filter(r -> r == ButtonType.OK);
 		} catch (IOException e) {
-			Alert exportNetworkError = new Alert(AlertType.ERROR,"Save Network to File: IO Exception.");
-			exportNetworkError.showAndWait().filter( r -> r == ButtonType.OK);
+			Alert exportNetworkError = new Alert(AlertType.ERROR, "Save Network to File: IO Exception.");
+			exportNetworkError.showAndWait().filter(r -> r == ButtonType.OK);
 		}
 	}
 
 	public boolean addFriends(String friend1, String friend2) {
 		if (friend1.equals(friend2)) {
 			return false;
+		} else {
+			if (graph.addEdge(friend1, friend2)) {
+				commands.add("a " + friend1 + " " + friend2);
+				return true;
+			}
+			return false;
 		}
-		if (graph.addEdge(friend1, friend2)) {
-			commands.add("a " + friend1 + " " + friend2);
-			return true;
-		}
-		return false;
 	}
 
 	public boolean removeFriends(String friend1, String friend2) {
 		if (friend1.equals(friend2)) {
 			return false;
+		} else {
+			if (graph.removeEdge(friend1, friend2)) {
+				commands.add("r " + friend1 + " " + friend2);
+				return true;
+			}
+			return false;
 		}
-		if (graph.removeEdge(friend1, friend2)) {
-			commands.add("r " + friend1 + " " + friend2);
-			return true;
-		}
-		return false;
 	}
 
 	public boolean addUser(String friend) {
@@ -133,8 +135,9 @@ public class SocialNetwork {
 	public String getCentralUser() {
 		return centralUser;
 	}
+
 	public void setCentralUser(String centralUser) {
+		addUser(centralUser);
 		this.centralUser = centralUser;
-		commands.add("s " + centralUser);
 	}
 }
