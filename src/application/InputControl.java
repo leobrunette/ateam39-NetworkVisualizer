@@ -8,12 +8,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+/**
+ * InputControl.java
+ * Class the contains the label, texfield, and button used for our interface
+ *
+ * @author ateam39
+ */
+
 public class InputControl extends HBox {
 	Label label;
 	TextField textField;
 	Button button;
 
-	public InputControl(String l, String tf, String b, String prompt, boolean disable, Controller controller) {
+	public InputControl(String l, String tf, String b, String prompt, boolean disable, Controller controller) { //the controller is passed so the buttons can call methods from it
 		if (l != null) {
 			label = new Label(l);
 			label.getStyleClass().add("labelInput");
@@ -35,7 +42,7 @@ public class InputControl extends HBox {
 				button.getStyleClass().add("red");
 			}
 			button.setDisable(disable);
-			switch (b) {
+			switch (b) {//switch used to simplify the different kinds of buttons, this is determined by the text on the button
 			case "clear":
 				button.setOnAction(new EventHandler<ActionEvent>() {
 					@Override

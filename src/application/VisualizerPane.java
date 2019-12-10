@@ -18,6 +18,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 
+/**
+ * VisualizerPane.java
+ * Class the contains the graphic representation of the social network
+ *
+ * @author ateam39
+ */
+
 public class VisualizerPane extends StackPane {
 	private Button centralUser;
 	private List<String> friendsList;
@@ -44,20 +51,20 @@ public class VisualizerPane extends StackPane {
 			friends = new ArrayList<Button>();
 			connections = new ArrayList<Line>();
 			friendsList = controller.getFriendsOfUser(controller.getCentralUser());
-			for (int f = 0; f < friendsList.size(); f++) {
+			for (int f = 0; f < friendsList.size(); f++) { //Generates the list of buttons for all of the friends
 				Button button = new Button(friendsList.get(f));
 				button.getStyleClass().addAll("vertex", "normal");
 				button.setTranslateY((4 * (controller.getWindowHeight() / 9)) - 30);
 				button.setTranslateX(((f + 1) * (controller.getWindowWidth() / (friendsList.size() + 1))) - (30));
 				button.translateZProperty().set(-10);
-				button.setOnAction(new EventHandler<ActionEvent>() {
+				button.setOnAction(new EventHandler<ActionEvent>() { //sets the aciton for the button to the method from the controller
 					@Override
 					public void handle(ActionEvent e) {
 						controller.changeCentralUser(button.getText());
 					}
 				});
 				this.friends.add(button);
-				makeLine(button, centralUser);
+				makeLine(button, centralUser); //generates the line between the central user button and friend
 			}
 			collapseContainers();
 			setAttributes();
@@ -88,13 +95,10 @@ public class VisualizerPane extends StackPane {
 	}
 
 	private void makeLine(Button b1, Button b2) {
-		Line con = new Line(b1.getTranslateX() + (30), b1.getTranslateY() + (30), b2.getTranslateX() + (30),
-				b2.getTranslateY() + (30));
-		double length = Math
-				.sqrt(Math.pow(con.getEndY() - con.getStartY(), 2) + Math.pow(con.getEndX() - con.getStartX(), 2));
+		Line con = new Line(b1.getTranslateX() + (30), b1.getTranslateY() + (30), b2.getTranslateX() + (30), b2.getTranslateY() + (30)); //Uses the coordinates from the centralUser and friend plus half the size of the buttons
+		double length = Math.sqrt(Math.pow(con.getEndY() - con.getStartY(), 2) + Math.pow(con.getEndX() - con.getStartX(), 2));
 		double angle = Math.acos((con.getEndX() - con.getStartX()) / length);
-		Line output = new Line(con.getStartX() + (Math.cos(angle) * 30), con.getStartY() - (Math.sin(angle) * 30),
-				con.getEndX() - (Math.cos(angle) * 30), con.getEndY() + (Math.sin(angle) * 30));
+		Line output = new Line(con.getStartX() + (Math.cos(angle) * 30), con.getStartY() - (Math.sin(angle) * 30), con.getEndX() - (Math.cos(angle) * 30), con.getEndY() + (Math.sin(angle) * 30));//This uses trig to make the line only start and end at the edge of the buttons
 		output.getStyleClass().add("line");
 		connections.add(output);
 	}

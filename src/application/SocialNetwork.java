@@ -13,6 +13,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * SocialNetwork.java
+ * Class the contains and interacts with the graph that contains the users
+ *
+ * @author ateam39
+ */
+
 public class SocialNetwork {
 	private Graph graph;
 	private String centralUser;
@@ -24,7 +31,7 @@ public class SocialNetwork {
 		commands = new ArrayList<String>();
 	}
 
-	public void loadFromNetwork(File file) {
+	public void loadFromNetwork(File file) {//parses the file and calls the commands given by the file
 		Scanner in = null;
 		try {
 			in = new Scanner(file);
@@ -53,7 +60,7 @@ public class SocialNetwork {
 		}
 	}
 
-	public void saveToFile(File file) {
+	public void saveToFile(File file) {//saves to file using the saved commands
 		try {
 			if (file.exists()) {
 				file.delete();
@@ -76,7 +83,7 @@ public class SocialNetwork {
 		}
 	}
 
-	public boolean addFriends(String friend1, String friend2) {
+	public boolean addFriends(String friend1, String friend2) {//adds edge to graph and adds command
 		if (friend1.equals(friend2)) {
 			return false;
 		} else {
@@ -88,7 +95,7 @@ public class SocialNetwork {
 		}
 	}
 
-	public boolean removeFriends(String friend1, String friend2) {
+	public boolean removeFriends(String friend1, String friend2) {//removes edge to graph and adds command
 		if (friend1.equals(friend2)) {
 			return false;
 		} else {
@@ -100,7 +107,7 @@ public class SocialNetwork {
 		}
 	}
 
-	public boolean addUser(String friend) {
+	public boolean addUser(String friend) {//adds vertex and adds command
 		if (friend != null) {
 			if (graph.addVertex(friend)) {
 				commands.add("a " + friend);
@@ -114,7 +121,7 @@ public class SocialNetwork {
 		return false;
 	}
 
-	public boolean removeUser(String friend) {
+	public boolean removeUser(String friend) {//removes vertex and adds command
 		if (friend != null) {
 			if (graph.removeVertex(friend)) {
 				commands.add("r " + friend);
@@ -124,20 +131,23 @@ public class SocialNetwork {
 		return false;
 	}
 
-	public List<String> getFriends(String user) {
+	public List<String> getFriends(String user) {//gets friends of users
 		return graph.getAdjacentVerticesOf(user);
 	}
 
-	public int getNumberOfUsers() {
+	public int getNumberOfUsers() {//returns the number of vertices in graph
 		return graph.order();
 	}
 
-	public String getCentralUser() {
+	public String getCentralUser() {//returns central user
 		return centralUser;
 	}
 
-	public void setCentralUser(String centralUser) {
-		addUser(centralUser);
+	public void setCentralUser(String centralUser) {//sets central user and adds command
+		if(addUser(centralUser)) {
+			commands.add("a "+centralUser);
+		}
+		commands.add("s "+centralUser);
 		this.centralUser = centralUser;
 	}
 }

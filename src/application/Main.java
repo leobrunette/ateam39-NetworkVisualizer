@@ -27,8 +27,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * JDK 11, Eclipse 2019-06 https://gluonhq.com/products/javafx/
- * https://openjfx.io/openjfx-docs/
+ * Main.java
+ * Starts the JavaFX application
  *
  * @author ateam39
  */
@@ -44,8 +44,8 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.show();
-		primaryStage.setMaximized(true);
-		Controller controller = new Controller(primaryStage);
+		primaryStage.setMaximized(true); //Maximizing application to allow for space for graphics
+		Controller controller = new Controller(primaryStage); //The controller is a way to organize our methods called by all the buttons in the program
 		controller.generateStage();
 	}
 	public static void main(String[] args) {

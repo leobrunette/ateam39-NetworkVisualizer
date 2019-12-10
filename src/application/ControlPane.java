@@ -12,56 +12,63 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * ControlPane.java
+ * Contains controls for editing the network via the bottom portion of the screen
+ *
+ * @author ateam39
+ */
+
 public class ControlPane extends HBox {
 ////Left portion////
 	VBox vboxLeft;
-	// Central user
+// Central user
 	HBox hboxCentralUser;
-	// Import network
+// Import network
 	HBox hboxImportNetwork;
 	Label importNetworkException;
-	// Export network
+// Export network
 	HBox hboxExportNetwork;
-	// Clear network
+// Clear network
 	HBox hboxClearNetwork;
 
 ////Right portion////
 	VBox vboxRight;
-	// Undo and redo buttons
+// Undo and redo buttons
 	HBox hboxUndoRedo;
 	Button bUndo;
 	Button bRedo;
-	// Add friend
+// Add friend
 	HBox hboxAddFriend;
-	// Remove friend
+// Remove friend
 	HBox hboxRemoveFriend;
 	HBox hboxAddUser;
 
-	public ControlPane(Controller controller) {
-		//// Check if central user selected / no network
+	public ControlPane(Controller controller) { //passed the controller so that it can be passed and used by inputs to call methods
+	////Check if central user selected / no network
 		boolean disabled = false;
 		if (controller.isNetworkEmpty()) {
 			disabled = true;
 		}
 ////////Left portion////////	
 		vboxLeft = new VBox();
-		//// Central user
+	////Central user
 		if (!disabled) {
 			hboxCentralUser = new InputControl("central user:", "", "set", "username", false, controller);
 		} else {
 			hboxCentralUser = new InputControl("central user:", "", "add user", "username", false, controller);
 		}
-		//// Import network
+	////Import network
 		hboxImportNetwork = new InputControl("import network:", "", "import", "file path", false, controller);
-		//// Export network
+	////Export network
 		hboxExportNetwork = new InputControl("export network:", "", "export", "file path", disabled, controller);
-		//// Clear network
+	////Clear network
 		hboxClearNetwork = new InputControl("clear network:", null, "clear", null, disabled, controller);
 ////////Right portion////////
 		vboxRight = new VBox();
-		//// Add friend
+	////Add friend
 		hboxAddFriend = new InputControl("add friend:", "", "add", "username", disabled, controller);
-		//// Remove friend
+	////Remove friend
 		hboxRemoveFriend = new InputControl("remove friend:", "", "remove", "username", disabled, controller);
 		hboxAddUser = new InputControl("add user:", "", "new user", "username", disabled, controller);
 		this.setMinHeight(1 * (controller.getWindowHeight() / 3));
@@ -70,13 +77,13 @@ public class ControlPane extends HBox {
 		collapseContainers();
 	}
 
-	private void setAttributes() {
+	private void setAttributes() { //method to add attributes to classes
 		this.getStyleClass().add("controlPane");
 		vboxLeft.setSpacing(50);
 		vboxRight.setSpacing(25);
 	}
 
-	private void collapseContainers() {
+	private void collapseContainers() { //method to organize all containers
 		vboxLeft.getChildren().addAll(hboxCentralUser, hboxImportNetwork, hboxExportNetwork);
 		vboxRight.getChildren().addAll(hboxAddFriend, hboxRemoveFriend, hboxAddUser, hboxClearNetwork);
 		this.getChildren().addAll(vboxLeft, vboxRight);

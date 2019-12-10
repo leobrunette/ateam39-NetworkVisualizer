@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Filename: Graph.java Project: p4 Author: Leo Brunette Net ID: 9080224448
- * Course: CS400 - LEC 002 ======= import java.util.List; import java.util.Set;
- * //import GraphADT; import java.util.ArrayList; import java.util.HashSet;
- * //import java.util.LinkedList; /** Filename: Graph.java Project: p4 Authors:
- * 
- * >>>>>>> dev Directed and unweighted graph implementation
+ * Graph.java
+ * Undirected graph to store social network data
+ *
+ * @author ateam39
  */
 
 public class Graph implements GraphADT {
