@@ -95,7 +95,6 @@ public class VisualizerPane extends StackPane {
 		double angle = Math.acos((con.getEndX() - con.getStartX()) / length);
 		Line output = new Line(con.getStartX() + (Math.cos(angle) * 30), con.getStartY() - (Math.sin(angle) * 30),
 				con.getEndX() - (Math.cos(angle) * 30), con.getEndY() + (Math.sin(angle) * 30));
-		// Add Line style here
 		output.getStyleClass().add("line");
 		connections.add(output);
 	}

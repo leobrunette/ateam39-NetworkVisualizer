@@ -36,6 +36,7 @@ public class ControlPane extends HBox {
 	// Remove friend
 	HBox hboxRemoveFriend;
 	HBox hboxAddUser;
+
 	public ControlPane(Controller controller) {
 		//// Check if central user selected / no network
 		boolean disabled = false;
@@ -62,9 +63,9 @@ public class ControlPane extends HBox {
 		hboxAddFriend = new InputControl("add friend:", "", "add", "username", disabled, controller);
 		//// Remove friend
 		hboxRemoveFriend = new InputControl("remove friend:", "", "remove", "username", disabled, controller);
-		hboxAddUser = new InputControl("add user:","","new user", "username", disabled, controller);
+		hboxAddUser = new InputControl("add user:", "", "new user", "username", disabled, controller);
 		this.setMinHeight(1 * (controller.getWindowHeight() / 3));
-		this.setMaxHeight(2*(controller.getWindowHeight()/5));
+		this.setMaxHeight(2 * (controller.getWindowHeight() / 5));
 		setAttributes();
 		collapseContainers();
 	}
@@ -77,7 +78,7 @@ public class ControlPane extends HBox {
 
 	private void collapseContainers() {
 		vboxLeft.getChildren().addAll(hboxCentralUser, hboxImportNetwork, hboxExportNetwork);
-		vboxRight.getChildren().addAll(hboxAddFriend, hboxRemoveFriend, hboxAddUser,hboxClearNetwork);
+		vboxRight.getChildren().addAll(hboxAddFriend, hboxRemoveFriend, hboxAddUser, hboxClearNetwork);
 		this.getChildren().addAll(vboxLeft, vboxRight);
 	}
 }
