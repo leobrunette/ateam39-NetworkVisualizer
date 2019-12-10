@@ -41,6 +41,11 @@ public class VisualizerPane extends StackPane {
 		lines = new Pane();
 		statusPane = new Pane();
 		status = new Label("status: "+controller.getStatus());
+		if(controller.getStatus().contains("failed")) {
+			status.getStyleClass().add("statusRed");
+		}else {
+			status.getStyleClass().add("statusGreen");
+		}
 		status.setTranslateX(10);
 		status.setTranslateY(10);
 		statusPane.getChildren().add(status);
@@ -72,19 +77,18 @@ public class VisualizerPane extends StackPane {
 			noCentral = new Label("no central user selected");
 			noCentral.getStyleClass().add("noCentralUser");
 			noCentral.setTranslateY((2.5 * (controller.getWindowHeight() / 9)) - 30);
-			this.getChildren().add(noCentral);
+			this.getChildren().addAll(noCentral,statusPane);
 		} else {
 			noCentral = new Label("no users in network");
 			noCentral.getStyleClass().add("noCentralUser");
 			noCentral.setTranslateY((2.5 * (controller.getWindowHeight() / 9)) - 30);
-			this.getChildren().add(noCentral);
+			this.getChildren().addAll(noCentral,statusPane);
 		}
 	}
 
 	private void setAttributes() {
 		centralUser.setDisable(true);
 		centralUser.getStyleClass().addAll("vertex", "primary");
-		status.getStyleClass().add("status");
 	}
 
 	private void collapseContainers() {
